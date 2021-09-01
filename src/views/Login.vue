@@ -25,7 +25,18 @@
           />
         </label>
 
-        <input type="submit" value="LOGIN" class="login-btn" />
+        <input
+          type="submit"
+          value="LOGIN"
+          class="login-btn"
+          :disabled="isLoading"
+        />
+
+        <LoadingCubes v-show="isLoading" :width="40" :height="40" />
+
+        <div class="login-error" v-show="error">
+          {{ error }}
+        </div>
       </form>
 
       <div class="login-hint">
@@ -40,17 +51,35 @@
 </template>
 
 <script>
+import LoadingCubes from "@/components/common/LoadingCubes.vue";
+
 export default {
   name: "Login",
+  components: { LoadingCubes },
   data() {
     return {
       email: "",
       password: "",
+      isLoading: false,
+      error: "",
     };
   },
   methods: {
-    handleLogin(e) {
-      e.preventDefault();
+    async handleLogin(e) {
+      try {
+        e.preventDefault();
+        this.isLoading = true;
+        this.error = "";
+        await this.$store.dispatch("auth/login", {
+          email: this.email,
+          password: this.password,
+        });
+        this.$router.push({ name: "Cart" });
+      } catch (err) {
+        this.error = err;
+      } finally {
+        this.isLoading = false;
+      }
     },
   },
 };

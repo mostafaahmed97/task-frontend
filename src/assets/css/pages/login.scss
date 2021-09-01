@@ -42,12 +42,16 @@
     padding: 1rem 0rem;
     border-bottom: 1px solid #dcdcdc;
     outline: none;
-    transition: all 0.1s linear;
+    transition: all 0.2s ease-in-out;
   }
 
   .form-text:focus {
     border-bottom: 1px solid #12c2e9;
     color: #12c2e9;
+
+    &::placeholder {
+      color: #12c2e9;
+    }
   }
 
   .form-text::placeholder {
@@ -64,6 +68,17 @@
     background: #12c2e9;
     background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
     background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+
+    &:disabled {
+      opacity: 0.69;
+    }
+  }
+
+  .login-error {
+    font-size: small;
+    color: #f64f59;
+    margin-top: 0.5rem;
+    text-align: center;
   }
 }
 
