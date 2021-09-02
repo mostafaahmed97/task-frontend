@@ -1,0 +1,24 @@
+@import "../components/cart-contents.scss";
+
+.cart-page {
+  padding: 2rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .section-title {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1em;
+  }
+
+  .cart-section {
+    margin-bottom: 1rem;
+  }
+}
+
+.cart-components-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
