@@ -1,2 +1,41 @@
 .product-showcase {
 }
+
+.products-carousel {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+}
+
+.product-card {
+  margin-right: 2rem;
+
+  .img {
+    width: 100px;
+    height: 125px;
+    background-color: #fff;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+  }
+
+  .title {
+    font-size: small;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+  }
+
+  .add-btn {
+    border: 1px solid #3d86f9;
+    color: #3d86f9;
+    background-color: #fff;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
+
+    &:hover {
+      background-color: #3d86f9;
+      color: #fff;
+    }
+  }
+}

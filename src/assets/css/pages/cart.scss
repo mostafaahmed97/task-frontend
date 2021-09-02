@@ -1,4 +1,5 @@
 @import "../components/cart-contents.scss";
+@import "../components/product-showcase.scss";
 
 .cart-page {
   padding: 2rem;
@@ -19,6 +20,6 @@
 
 .cart-components-wrapper {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 2fr 1.5fr;
+  gap: 2rem;
 }

@@ -38,3 +38,13 @@ li {
 a {
   cursor: pointer;
 }
+
+.btn {
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0.5rem;
+  font-size: small;
+  font-weight: bold;
+}
