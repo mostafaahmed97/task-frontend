@@ -1,2 +1,102 @@
-.order-summary {
+.order-summary-wrapper {
+  height: min-content;
+}
+
+.order-details {
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 6px;
+}
+
+.coupon-ctrls {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid gainsboro;
+  margin-bottom: 1rem;
+}
+
+.coupon-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  input {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--gray);
+    outline: none;
+    transition: all 0.1s linear;
+
+    &:focus {
+      border: 1px solid var(--light-blue);
+      color: var(--dark-blue);
+
+      &::placeholder {
+        color: var(--dark-blue);
+      }
+    }
+  }
+
+  button {
+    margin-left: 1rem;
+    background-color: var(--dark-blue);
+    color: var(--light-blue);
+    padding: 0.5rem 1rem;
+    transition: all 0.1s ease-in-out;
+
+    &:hover {
+      color: var(--dark-blue);
+      background-color: var(--light-blue);
+    }
+  }
+}
+
+.coupon-hint,
+.success,
+.error {
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: small;
+  width: fit-content;
+  align-self: center;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.coupon-hint {
+  background-color: #d4d4d4;
+}
+
+.success {
+  background-color: #59b259;
+  color: #fff;
+}
+
+.error {
+  background-color: #f05e5b;
+  color: #fff;
+}
+
+.order-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  .title {
+    color: gray;
+  }
+
+  .data {
+    margin-left: auto;
+    font-size: small;
+  }
 }
