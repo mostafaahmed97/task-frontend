@@ -11,8 +11,12 @@ export default {
     isLoggedIn: (state) => (state.token ? true : false),
   },
   mutations: {
-    SET_TOKEN() {},
-    SET_USER_DATA() {},
+    SET_TOKEN(state, token) {
+      state.token = token;
+    },
+    SET_USER_DATA(state, payload) {
+      state.userData = payload;
+    },
   },
   actions: {
     async login({ commit }, payload) {

@@ -1,7 +1,6 @@
 import { httpClient } from "./httpClient";
 
 const postLogin = (email, password) => {
-  console.log("hitting the endpoint");
   return new Promise((resolve, reject) => {
     httpClient
       .post("/auth/login", {

@@ -25,7 +25,10 @@ export default {
       if (state.coupon.type == "fixed") return state.coupon.amount;
       return (state.coupon.amount / 100) * getters.priceSum;
     },
-    totalPrice: (state, getters) => getters.priceSum - getters.discountAmount,
+    totalPrice: (state, getters) =>
+      getters.priceSum - getters.discountAmount > 0
+        ? getters.priceSum - getters.discountAmount
+        : 0,
   },
   mutations: {
     SET_PRODUCTS(state, payload) {
@@ -60,7 +63,6 @@ export default {
     async fetchContents({ commit }) {
       try {
         let response = await CartApi.getContents();
-        console.log(response);
         commit("SET_ITEMS", response.data.cartitems);
         commit("SET_COUPON", response.data.coupon);
       } catch (e) {

@@ -1,12 +1,15 @@
 <template>
   <div class="product-showcase-wrapper cart-section">
     <div class="section-title">Products</div>
-    <div class="products-carousel">
+    <div class="products-carousel" v-if="availableProducts.length">
       <ProductCard
         v-for="product in availableProducts"
         :key="product.id"
         :product="product"
       />
+    </div>
+    <div v-else>
+      No products to show
     </div>
   </div>
 </template>

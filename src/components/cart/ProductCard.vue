@@ -14,7 +14,6 @@ export default {
   props: { product: Object },
   methods: {
     addToCart() {
-      console.log(this.product);
       this.$store.dispatch("cart/add", this.product.id);
     },
   },
