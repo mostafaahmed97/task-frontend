@@ -1,14 +1,23 @@
 <template>
   <div class="product-card">
-    <div class="img"></div>
-    <div class="title">Bbbb</div>
-    <button class="add-btn btn">Add to cart</button>
+    <div class="img">
+      <img :src="product.img" alt="" />
+    </div>
+    <div class="title">{{ product.name }}</div>
+    <button class="add-btn btn" @click="addToCart">Add to cart</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "ProductCard",
+  props: { product: Object },
+  methods: {
+    addToCart() {
+      console.log(this.product);
+      this.$store.dispatch("cart/add", this.product.id);
+    },
+  },
 };
 </script>
 

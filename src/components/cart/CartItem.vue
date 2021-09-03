@@ -12,37 +12,56 @@
     <div class="item-price">${{ item.product.price }}</div>
 
     <div class="item-qty-ctrl">
-      <input class="minus" value="-" type="button" />
-      <input class="qty" type="text" :value="item.quantity" disabled size="1" />
-      <input class="plus" value="+" type="button" />
+      <input class="minus" value="-" type="button" @click="dec" />
+      <input class="qty" type="text" :value="item.quantity" disabled size="2" />
+      <input class="plus" value="+" type="button" @click="inc" />
+    </div>
+
+    <div class="item-loading" v-show="isLoading">
+      <LoadingCubes :height="40" :width="40" />
     </div>
   </div>
 </template>
 
 <script>
+import LoadingCubes from "../common/LoadingCubes.vue";
+
 export default {
   name: "CartItem",
+  components: { LoadingCubes },
+  props: { item: Object },
   data() {
     return {
-      item: {
-        id: 3,
-        quantity: 1,
-        createdAt: "2021-09-02T16:31:56.000Z",
-        updatedAt: "2021-09-02T16:31:56.000Z",
-        cartId: 1,
-        productId: 3,
-        product: {
-          id: 3,
-          name: "Audio Interface",
-          description: "Record your greatest sounds",
-          available_quantity: 5,
-          img: "",
-          price: 1950,
-          createdAt: "2021-09-02T16:31:56.000Z",
-          updatedAt: "2021-09-02T16:31:56.000Z",
-        },
-      },
+      isLoading: false,
     };
+  },
+  methods: {
+    async inc() {
+      try {
+        this.isLoading = true;
+        let quantity = this.item.quantity + 1;
+        await this.$store.dispatch("cart/update", {
+          itemId: this.item.id,
+          quantity,
+        });
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async dec() {
+      try {
+        this.isLoading = true;
+        let quantity = this.item.quantity - 1;
+        if (quantity <= 0) this.$store.dispatch("cart/remove", this.item.id);
+        else
+          this.$store.dispatch("cart/update", {
+            itemId: this.item.id,
+            quantity,
+          });
+      } finally {
+        this.isLoading = false;
+      }
+    },
   },
 };
 </script>

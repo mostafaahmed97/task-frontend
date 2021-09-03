@@ -17,10 +17,10 @@ export default {
   actions: {
     async login({ commit }, payload) {
       try {
-        let data = await authApi.postLogin(payload.email, payload.password);
-        setToken(data.token);
-        commit("SET_TOKEN", data.token);
-        commit("SET_USER_DATA", data.user);
+        let response = await authApi.postLogin(payload.email, payload.password);
+        setToken(response.data.token);
+        commit("SET_TOKEN", response.data.token);
+        commit("SET_USER_DATA", response.data.user);
       } catch (e) {
         throw e.response.data.error;
       }
