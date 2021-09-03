@@ -6,13 +6,19 @@
       <CouponControls />
 
       <div class="order-data">
-        <div class="line">
-          <h5 class="title">You save</h5>
-          <div class="data">$25</div>
+        <div class="line" v-show="discountAmount">
+          <h5 class="title">Before discount</h5>
+          <div class="data">${{ priceSum }}</div>
         </div>
+
+        <div class="line" v-show="discountAmount">
+          <h5 class="title">You save</h5>
+          <div class="data">${{ discountAmount }} {{ formattedDiscount }}</div>
+        </div>
+
         <div class="line">
           <h5 class="title">Total amount</h5>
-          <div class="data">$132</div>
+          <div class="data">${{ totalPrice }}</div>
         </div>
       </div>
     </div>
@@ -21,10 +27,24 @@
 
 <script>
 import CouponControls from "./CouponControls.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "OrderSummary",
   components: { CouponControls },
+  computed: {
+    ...mapGetters("cart", [
+      "appliedCoupon",
+      "discountAmount",
+      "totalPrice",
+      "priceSum",
+    ]),
+    formattedDiscount() {
+      if (this.appliedCoupon.type == "percent")
+        return ` (${this.appliedCoupon.amount} %)`;
+      return "";
+    },
+  },
 };
 </script>
 

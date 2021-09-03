@@ -66,6 +66,28 @@ const update = (itemId, quantity) => {
   });
 };
 
+const applyCode = (code) => {
+  return new Promise((resolve, reject) => {
+    httpClient
+      .post("/coupons/apply", {
+        code,
+      })
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
+};
+
+const removeCode = () => {
+  return new Promise((resolve, reject) => {
+    httpClient
+      .delete(`/coupons/remove`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
+
 export default {
   getAvailableProducts,
   getContents,
@@ -73,4 +95,6 @@ export default {
   add,
   remove,
   update,
+  applyCode,
+  removeCode,
 };

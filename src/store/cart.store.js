@@ -5,6 +5,7 @@ export default {
   state: {
     cartItems: [],
     products: [],
+    coupon: {},
   },
   getters: {
     cartProductIds: (state) => state.cartItems.map((item) => item.product.id),
@@ -12,10 +13,26 @@ export default {
       state.products.filter(
         (product) => !getters.cartProductIds.includes(product.id)
       ),
+    appliedCoupon: (state) => (state.coupon ? state.coupon : 0),
+    priceSum: (state) => {
+      let sum = 0;
+      for (var item of state.cartItems)
+        sum += item.quantity * item.product.price;
+      return sum;
+    },
+    discountAmount: (state, getters) => {
+      if (!state.coupon) return 0;
+      if (state.coupon.type == "fixed") return state.coupon.amount;
+      return (state.coupon.amount / 100) * getters.priceSum;
+    },
+    totalPrice: (state, getters) => getters.priceSum - getters.discountAmount,
   },
   mutations: {
     SET_PRODUCTS(state, payload) {
       state.products = payload;
+    },
+    SET_COUPON(state, payload) {
+      state.coupon = payload;
     },
     SET_ITEMS(state, payload) {
       state.cartItems = payload;
@@ -43,7 +60,9 @@ export default {
     async fetchContents({ commit }) {
       try {
         let response = await CartApi.getContents();
-        commit("SET_ITEMS", response.data);
+        console.log(response);
+        commit("SET_ITEMS", response.data.cartitems);
+        commit("SET_COUPON", response.data.coupon);
       } catch (e) {
         console.log(e.response);
       }
@@ -73,6 +92,26 @@ export default {
         commit("REMOVE_ITEM", itemId);
       } catch (e) {
         console.log(e.response);
+      }
+    },
+    async applyCode({ commit }, code) {
+      return new Promise((resolve, reject) => {
+        console.log("code form promise ", code);
+        CartApi.applyCode(code)
+          .then((response) => {
+            commit("SET_COUPON", response.data);
+            resolve();
+          })
+          .catch((e) => reject(e.response.data.error));
+      });
+    },
+    async removeCode({ commit }) {
+      try {
+        await CartApi.removeCode();
+        commit("SET_COUPON", null);
+      } catch (e) {
+        console.log(e.response);
+        throw e.response;
       }
     },
   },
